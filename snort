@@ -1,0 +1,42 @@
+cd C:\Snort\bin
+.\snort.exe -V
+
+--------sudo apt install snort
+--------snort -V
+
+#interfaces
+.\snort.exe -W
+---------------------ip -br link
+
+notepad C:\Snort\etc\snort.conf
+--------------------sudo nano /etc/snort/snort.conf
+
+#Set the network variables:
+ipvar HOME_NET any
+ipvar EXTERNAL_NET any
+
+#Set the rule directory:
+var RULE_PATH C:\Snort\rules
+
+#The dynamic library paths were configured for your Windows installation:
+dynamicpreprocessor directory C:\Snort\lib\snort_dynamicpreprocessor
+dynamicengine C:\Snort\lib\snort_dynamicengine\sf_engine.dll
+
+include $RULE_PATH/app-detect.rules
+
+notepad C:\Snort\rules\app-detect.rules
+-------------------------sudo mkdir -p /etc/snort/rules
+-------------------------sudo nano /etc/snort/rules/app-detect.rules
+
+#add
+alert icmp any any -> any any (msg:"ICMP Packet Detected"; sid:1000001; rev:1;)
+
+cd C:\Snort\bin
+.\snort.exe -T -c C:\Snort\etc\snort.conf -i 5
+--------------------sudo snort -T -c /etc/snort/snort.conf -i wlan0
+cd C:\Snort\bin
+.\snort.exe -i 5 -A console -c C:\Snort\etc\snort.conf
+--------------------sudo snort -i wlan0 -A console -c /etc/snort/snort.conf -l /var/log/snort
+
+#new terminal
+ping 8.8.8.8
