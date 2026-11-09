@@ -9,11 +9,10 @@ b=16
 #public key
 A=pow(g,a,p)
 B=pow(g,b,p)
+#secret keys
 Ka=pow(B,a,p)
 Kb=pow(A,b,p)
-#secret keys
-Ka=pow(g,B,p)
-Kb=pow(g,B,p)
+
 
 if Ka==Kb:
     print('success')
